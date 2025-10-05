@@ -2,47 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Santosh Pujeri | Backend Developer</title>
 <style>
-/* General Styles */
-body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f4f4; color:#333; scroll-behavior:smooth; }
-.container { max-width:1000px; margin:auto; padding:60px 30px 30px 30px; background:#fff; box-shadow:0 0 10px rgba(0,0,0,0.1);}
-header { text-align:center; margin-bottom:50px;}
-header h1 { color:#1a73e8; margin:0;}
-header p { margin:5px 0; }
-header a { color:#1a73e8; margin:0 10px; text-decoration:none;}
-header a:hover { text-decoration:underline; }
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f4f4; color:#333; scroll-behavior:smooth;}
+  .container { max-width:1000px; margin:auto; padding:30px; background:#fff; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+  
+  /* Banner Section */
+  .banner { background:#1a73e8; color:#fff; padding:60px 30px; text-align:center; border-radius:8px; margin-bottom:40px; }
+  .banner h1 { margin:0; font-size:2.5em; }
+  .banner p { font-size:1.1em; margin:15px 0; line-height:1.5; }
+  .banner a { display:inline-block; margin-top:15px; padding:10px 20px; background:#fff; color:#1a73e8; text-decoration:none; font-weight:bold; border-radius:5px; transition:0.3s; }
+  .banner a:hover { background:#e0e0e0; }
 
-/* Navigation */
-nav {
-  position:fixed; top:0; width:100%; background:#1a73e8; padding:10px; text-align:center; z-index:1000;
-}
-nav a { color:#fff; margin:0 15px; text-decoration:none; font-weight:bold; }
-nav a:hover { text-decoration:underline; }
+  nav { position:fixed; top:0; width:100%; background:#1a73e8; padding:10px; text-align:center; z-index:1000; }
+  nav a { color:#fff; margin:0 15px; text-decoration:none; font-weight:bold; }
+  nav a:hover { text-decoration:underline; }
 
-/* Sections */
-section { margin-bottom:40px; }
-h2 { color:#1a73e8; border-bottom:2px solid #1a73e8; padding-bottom:5px; margin-bottom:15px; }
+  section { margin-bottom:40px; }
+  h2 { color:#1a73e8; border-bottom:2px solid #1a73e8; padding-bottom:5px; margin-bottom:15px; }
 
-/* Skills */
-.skills .skill { margin-bottom:15px; }
-.skills .skill span { display:block; font-weight:bold; margin-bottom:5px; }
-.skills .skill-bar { background:#ddd; border-radius:20px; overflow:hidden; height:15px; }
-.skills .skill-fill { height:100%; background:#1a73e8; width:0; animation: fill 2s forwards; }
+  /* Skills */
+  .skills .skill { margin-bottom:15px; }
+  .skills .skill span { display:block; font-weight:bold; margin-bottom:5px; }
+  .skills .skill-bar { background:#ddd; border-radius:20px; overflow:hidden; height:15px; }
+  .skills .skill-fill { height:100%; background:#1a73e8; width:0; animation: fill 2s forwards; }
+  @keyframes fill { to { width: var(--width); } }
 
-/* Projects */
-.projects { display:flex; flex-wrap:wrap; gap:20px; }
-.project-card { background:#e8f0fe; padding:15px; border-radius:8px; flex:1 1 300px; transition: transform 0.3s, box-shadow 0.3s; }
-.project-card:hover { transform: translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.2); }
-.project-card h3 { margin-top:0; }
-.project-card a { color:#1a73e8; text-decoration:none; font-weight:bold; }
-.project-card a:hover { text-decoration:underline; }
+  /* Projects */
+  .projects { display:flex; flex-wrap:wrap; gap:20px; }
+  .project-card { background:#e8f0fe; padding:15px; border-radius:8px; flex:1 1 300px; transition: transform 0.3s, box-shadow 0.3s; }
+  .project-card:hover { transform: translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+  .project-card h3 { margin-top:0; }
+  .project-card a { color:#1a73e8; text-decoration:none; font-weight:bold; }
+  .project-card a:hover { text-decoration:underline; }
 
-/* Animation */
-@keyframes fill { to { width: var(--width); } }
-
-/* Experience & Education Lists */
-ul { margin-left:20px; }
+  ul { margin-left:20px; }
 </style>
 </head>
 <body>
@@ -54,87 +49,103 @@ ul { margin-left:20px; }
 </nav>
 
 <div class="container">
-    <header>
-        <h1>Santosh Pujeri</h1>
-        <p>Backend Developer | Java, Spring Boot, Microservices, SQL, AWS</p>
-        <p>Backend Developer with 6.5+ years of experience building scalable, cloud-native systems across multiple domains. Transitioned from QA Automation, bringing a unique perspective on creating well-tested, reliable backend services.</p>
-        <p>
-            <a href="mailto:16santoshpujari@gmail.com">Email</a> |
-            <a href="https://www.linkedin.com/in/santosh-pujeri">LinkedIn</a> |
-            <a href="https://github.com/pujerisantosh">GitHub</a>
-        </p>
-    </header>
 
-    <section class="skills" id="skills">
-        <h2>Core Skills</h2>
-        <div class="skill"><span>Java 17</span><div class="skill-bar"><div class="skill-fill" style="--width:90%; width:90%;"></div></div></div>
-        <div class="skill"><span>Spring Boot</span><div class="skill-bar"><div class="skill-fill" style="--width:85%; width:85%;"></div></div></div>
-        <div class="skill"><span>Spring Cloud</span><div class="skill-bar"><div class="skill-fill" style="--width:80%; width:80%;"></div></div></div>
-        <div class="skill"><span>REST APIs / Microservices</span><div class="skill-bar"><div class="skill-fill" style="--width:90%; width:90%;"></div></div></div>
-        <div class="skill"><span>Hibernate/JPA</span><div class="skill-bar"><div class="skill-fill" style="--width:85%; width:85%;"></div></div></div>
-        <div class="skill"><span>MySQL / PostgreSQL</span><div class="skill-bar"><div class="skill-fill" style="--width:85%; width:85%;"></div></div></div>
-        <div class="skill"><span>Redis / Kafka</span><div class="skill-bar"><div class="skill-fill" style="--width:80%; width:80%;"></div></div></div>
-        <div class="skill"><span>AWS (ECS, RDS, S3, Lambda, CloudWatch, ECR)</span><div class="skill-bar"><div class="skill-fill" style="--width:85%; width:85%;"></div></div></div>
-        <div class="skill"><span>Docker / Kubernetes</span><div class="skill-bar"><div class="skill-fill" style="--width:80%; width:80%;"></div></div></div>
-        <div class="skill"><span>JUnit / RestAssured</span><div class="skill-bar"><div class="skill-fill" style="--width:85%; width:85%;"></div></div></div>
-    </section>
+  <!-- Banner Section -->
+  <div class="banner">
+    <h1>Santosh Pujeri</h1>
+    <p>Backend Developer | QA → Backend Transition | Java, Spring Boot, Microservices, SQL, AWS</p>
+    <p>I leverage 6.5+ years of QA Automation experience to build <strong>reliable, well-tested, and scalable backend systems</strong>. Delivered projects like <strong>distributed ticket booking systems</strong> and <strong>E-Commerce microservices</strong>, integrating CI/CD pipelines, API validations, and cloud deployments.</p>
+    <a href="#projects">View My Projects</a>
+  </div>
 
-    <section class="projects" id="projects">
-        <h2>Key Projects / Achievements</h2>
-        <div class="project-card">
-            <h3>BookMyShow Clone | <a href="https://github.com/pujerisantosh" target="_blank">GitHub</a></h3>
-            <ul>
-                <li>Distributed movie ticket booking system using Spring Boot + Microservices.</li>
-                <li>Solved seat booking concurrency with DB locking + Redis enhancement.</li>
-                <li>Designed APIs for User, Theatre, Show, Seat, Booking, Payment, with Swagger docs.</li>
-                <li>Tested with JUnit + RestAssured and deployed using Docker + MySQL/H2.</li>
-            </ul>
-        </div>
-        <div class="project-card">
-            <h3>E-Commerce ProductService | <a href="https://github.com/pujerisantosh" target="_blank">GitHub</a></h3>
-            <ul>
-                <li>Spring Boot microservice for managing product catalog with CRUD + filtering.</li>
-                <li>Implemented layered architecture with validations & exception handling.</li>
-                <li>Containerized with Docker, integrated with MySQL, and validated via Postman.</li>
-            </ul>
-        </div>
-        <div class="project-card">
-            <h3>Financial Microservices</h3>
-            <ul>
-                <li>Developed scalable services for WealthTech & Capital Markets workflows.</li>
-                <li>Handled onboarding, capital flows, and risk validations with high reliability.</li>
-                <li>Automated CI/CD pipelines for AWS ECS/ECR deployment with CloudWatch monitoring.</li>
-            </ul>
-        </div>
-    </section>
+  <!-- Skills Section -->
+  <section class="skills" id="skills">
+    <h2>Core Skills</h2>
+    <div class="skill"><span>Java 17</span><div class="skill-bar"><div class="skill-fill" style="--width:90%; width:90%;"></div></div></div>
+    <div class="skill"><span>Spring Boot</span><div class="skill-bar"><div class="skill-fill" style="--width:85%; width:85%;"></div></div></div>
+    <div class="skill"><span>Spring Cloud</span><div class="skill-bar"><div class="skill-fill" style="--width:80%; width:80%;"></div></div></div>
+    <div class="skill"><span>REST APIs / Microservices</span><div class="skill-bar"><div class="skill-fill" style="--width:90%; width:90%;"></div></div></div>
+    <div class="skill"><span>Hibernate/JPA</span><div class="skill-bar"><div class="skill-fill" style="--width:85%; width:85%;"></div></div></div>
+    <div class="skill"><span>MySQL / PostgreSQL</span><div class="skill-bar"><div class="skill-fill" style="--width:85%; width:85%;"></div></div></div>
+    <div class="skill"><span>Redis / Kafka</span><div class="skill-bar"><div class="skill-fill" style="--width:80%; width:80%;"></div></div></div>
+    <div class="skill"><span>AWS (ECS, RDS, S3, Lambda, CloudWatch, ECR)</span><div class="skill-bar"><div class="skill-fill" style="--width:85%; width:85%;"></div></div></div>
+    <div class="skill"><span>Docker / Kubernetes</span><div class="skill-bar"><div class="skill-fill" style="--width:80%; width:80%;"></div></div></div>
+    <div class="skill"><span>JUnit / RestAssured / Pytest</span><div class="skill-bar"><div class="skill-fill" style="--width:85%; width:85%;"></div></div></div>
+  </section>
 
-    <section class="experience" id="experience">
-        <h2>Experience</h2>
+  <!-- Projects Section -->
+  <section class="projects" id="projects">
+    <h2>Key Projects / Achievements</h2>
+    <div class="project-card">
+      <h3>BookMyShow Clone | <a href="https://github.com/pujerisantosh" target="_blank">GitHub</a></h3>
+      <ul>
+        <li>Distributed movie ticket booking system using Spring Boot + Microservices.</li>
+        <li>Solved seat booking concurrency with DB locking + Redis enhancement.</li>
+        <li>Designed APIs for User, Theatre, Show, Seat, Booking, Payment, with Swagger docs.</li>
+        <li>Tested with JUnit + RestAssured and deployed using Docker + MySQL/H2.</li>
+      </ul>
+    </div>
+    <div class="project-card">
+      <h3>E-Commerce ProductService | <a href="https://github.com/pujerisantosh" target="_blank">GitHub</a></h3>
+      <ul>
+        <li>Spring Boot microservice for managing product catalog with CRUD + filtering.</li>
+        <li>Implemented layered architecture with validations & exception handling.</li>
+        <li>Containerized with Docker, integrated with MySQL, and validated via Postman.</li>
+      </ul>
+    </div>
+    <div class="project-card">
+      <h3>Financial Microservices</h3>
+      <ul>
+        <li>Developed scalable services for WealthTech & Capital Markets workflows.</li>
+        <li>Handled onboarding, capital flows, and risk validations with high reliability.</li>
+        <li>Automated CI/CD pipelines for AWS ECS/ECR deployment with CloudWatch monitoring.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="experience" id="experience">
+    <h2>Experience</h2>
+    <ul>
+      <li><strong>Appvestor – Senior QA Engineer (Jul 2025 – Present)</strong>
         <ul>
-            <li><strong>Appvestor – Senior QA Engineer (Jul 2025 – Present)</strong>
-                <ul>
-                    <li>Automated and optimized invoice microservices in AWS ECS/ECR.</li>
-                    <li>Integrated Pytest + AWS CloudWatch logs, reducing incident resolution time by 30%.</li>
-                    <li>Built and maintained CI/CD-aligned automation framework for backend microservices.</li>
-                </ul>
-            </li>
-            <li><strong>Synechron – QA Automation Lead (Jun 2022 – Jul 2025)</strong>
-                <ul>
-                    <li>Led automation for Wealth Management & Capital Market platforms (Morgan Stanley).</li>
-                    <li>Designed BDD test suites and API validations with Cucumber, RestAssured, SQL.</li>
-                    <li>Partnered with architects to streamline CI/CD pipelines and database validations.</li>
-                </ul>
-            </li>
+          <li>Automated and optimized invoice microservices in AWS ECS/ECR.</li>
+          <li>Integrated Pytest + AWS CloudWatch logs, reducing incident resolution time by 30%.</li>
+          <li>Built and maintained CI/CD-aligned automation framework for backend microservices.</li>
         </ul>
-    </section>
-
-    <section class="education" id="education">
-        <h2>Education</h2>
+      </li>
+      <li><strong>Synechron – QA Automation Lead (Jun 2022 – Jul 2025)</strong>
         <ul>
-            <li>Scaler – Backend Engineering Program (2025)</li>
-            <li>B.E. Electronics & Communication – Biluru Gurubasav Maha Swamiji Institute of Technology (2018)</li>
+          <li>Led automation for Wealth Management & Capital Market platforms (Morgan Stanley).</li>
+          <li>Designed BDD test suites and API validations with Cucumber, RestAssured, SQL.</li>
+          <li>Partnered with architects to streamline CI/CD pipelines and database validations.</li>
         </ul>
-    </section>
+      </li>
+      <li><strong>Vedantu – QA Analyst (Jul 2020 – Jun 2021)</strong>
+        <ul>
+          <li>Validated user transactions across ETL pipelines with SQL & ICEDQ.</li>
+          <li>Automated ETL validation workflows, improving payment reconciliation.</li>
+          <li>Collaborated with backend teams to ensure transaction integrity.</li>
+        </ul>
+      </li>
+      <li><strong>BYJU’S – QA Analyst (Jul 2018 – Nov 2019)</strong>
+        <ul>
+          <li>Transformed CRM raw data into actionable leads using SQL.</li>
+          <li>Enhanced CRM data pipelines with validation queries and cleansing workflows.</li>
+          <li>Supported Agile sprints for faster, high-quality releases.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Education Section -->
+  <section class="education" id="education">
+    <h2>Education</h2>
+    <ul>
+      <li>Scaler – Backend Engineering Program (2025)</li>
+      <li>B.E. Electronics & Communication – Biluru Gurubasav Maha Swamiji Institute of Technology (2018)</li>
+    </ul>
+  </section>
 </div>
 </body>
 </html>
