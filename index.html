@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santosh Pujeri — Senior Backend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0C1014;
+    --surface: #12171D;
+    --surface-2: #171D24;
+    --line: #232A32;
+    --text: #E8EDF2;
+    --muted: #8A96A3;
+    --muted-2: #5B6672;
+    --accent: #5EEAD4;
+    --accent-dim: #2E5A54;
+    --amber: #F2B85C;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  a{ color:inherit; }
+  ::selection{ background:var(--accent); color:#04140F; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  /* ---------- layout shell ---------- */
+  .wrap{ max-width:920px; margin:0 auto; padding:0 32px; }
+  section{ padding:96px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--accent);
+    margin-bottom:14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:6px; height:6px;
+    background:var(--accent);
+    border-radius:50%;
+    display:inline-block;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:20;
+    background:rgba(12,16,20,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px; max-width:920px;
+  }
+  .nav-name{ font-weight:600; font-size:15px; }
+  .nav-name span{ color:var(--accent); }
+  .nav-links{ display:flex; gap:28px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    font-size:14px; color:var(--muted); text-decoration:none;
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-links{ display:none; }
+  @media (min-width:640px){ .nav-links{ display:flex; } }
+
+  /* ---------- hero ---------- */
+  .hero{ padding-top:88px; padding-bottom:88px; border-bottom:1px solid var(--line); }
+  .hero-kicker{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; color:var(--muted);
+    margin-bottom:22px;
+  }
+  .hero-kicker .status{ color:var(--accent); }
+  .hero h1{
+    font-size:clamp(38px, 6vw, 64px);
+    font-weight:700;
+    line-height:1.04;
+    max-width:11ch;
+  }
+  .hero .role{
+    font-size:clamp(18px, 2.4vw, 22px);
+    color:var(--muted);
+    font-weight:400;
+    margin-top:22px;
+    max-width:52ch;
+  }
+  .hero .role strong{ color:var(--text); font-weight:500; }
+
+  .tag-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:32px; }
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted);
+    border:1px solid var(--line);
+    padding:7px 13px;
+    border-radius:100px;
+  }
+
+  .hero-cta{ display:flex; gap:14px; margin-top:40px; flex-wrap:wrap; }
+  .btn{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:14.5px; font-weight:500;
+    padding:12px 22px;
+    border-radius:8px;
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn-primary{ background:var(--accent); color:#04140F; }
+  .btn-primary:hover{ transform:translateY(-1px); }
+  .btn-ghost{ border:1px solid var(--line); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--muted-2); }
+
+  /* ---------- about / code block ---------- */
+  .about-grid{ display:grid; grid-template-columns:1fr; gap:40px; }
+  @media (min-width:760px){ .about-grid{ grid-template-columns: 0.9fr 1.1fr; gap:56px; } }
+  .about-copy p{ color:var(--muted); margin:0 0 16px; max-width:46ch; }
+  .about-copy p:last-child{ margin-bottom:0; }
+
+  .code-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .code-card .code-head{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 16px;
+    border-bottom:1px solid var(--line);
+  }
+  .dot{ width:9px; height:9px; border-radius:50%; }
+  .dot.r{ background:#E4676B; } .dot.y{ background:#EFC15E; } .dot.g{ background:#61C875; }
+  .code-head span.fname{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; color:var(--muted-2);
+    margin-left:6px;
+  }
+  .code-card pre{
+    margin:0; padding:20px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px; line-height:1.75;
+    color:#B9C4CE;
+    overflow-x:auto;
+  }
+  .code-card .kw{ color:#E399F0; }
+  .code-card .typ{ color:var(--accent); }
+  .code-card .str{ color:var(--amber); }
+  .code-card .cmt{ color:var(--muted-2); }
+
+  /* ---------- impact metrics ---------- */
+  .metrics{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    margin-top:44px;
+  }
+  @media (min-width:700px){ .metrics{ grid-template-columns:repeat(3,1fr); } }
+  .metric{ background:var(--surface); padding:28px 22px; }
+  .metric .num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:34px; font-weight:700; color:var(--accent);
+  }
+  .metric .label{ font-size:13.5px; color:var(--muted); margin-top:8px; }
+
+  /* ---------- experience ---------- */
+  .job{
+    display:grid; grid-template-columns:1fr;
+    gap:6px 32px;
+    padding:28px 0;
+    border-top:1px solid var(--line);
+  }
+  .job:first-of-type{ border-top:none; padding-top:0; }
+  @media (min-width:700px){
+    .job{ grid-template-columns:220px 1fr; gap:32px; }
+  }
+  .job-meta .company{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:17px; }
+  .job-meta .period{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--muted-2); margin-top:6px; }
+  .job-body .role-title{ color:var(--muted); font-size:14.5px; margin-bottom:10px; }
+  .job-body ul{ margin:0; padding-left:18px; color:var(--muted); }
+  .job-body li{ margin-bottom:8px; }
+  .job-body li:last-child{ margin-bottom:0; }
+  .job-body li strong{ color:var(--text); font-weight:500; }
+
+  /* ---------- projects ---------- */
+  .projects{ display:grid; grid-template-columns:1fr; gap:20px; margin-top:44px; }
+  @media (min-width:700px){ .projects{ grid-template-columns:1fr 1fr; } }
+  .project-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:26px;
+    display:flex; flex-direction:column; gap:14px;
+    transition:border-color .15s ease;
+  }
+  .project-card:hover{ border-color:var(--accent-dim); }
+  .project-card .p-title{
+    display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  }
+  .project-card h3{ font-size:19px; }
+  .project-card .p-link{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--accent);
+    text-decoration:none; white-space:nowrap;
+  }
+  .project-card .p-desc{ color:var(--muted); font-size:14.5px; }
+  .stack-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; }
+  .chip{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px;
+    color:var(--muted-2); border:1px solid var(--line);
+    padding:4px 10px; border-radius:6px;
+  }
+
+  /* ---------- stack ---------- */
+  .stack-groups{ display:grid; grid-template-columns:1fr; gap:28px; margin-top:44px; }
+  @media (min-width:700px){ .stack-groups{ grid-template-columns:repeat(3,1fr); } }
+  .stack-group h4{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px;
+    color:var(--muted-2); font-weight:400; text-transform:none;
+    margin-bottom:14px;
+  }
+  .stack-group .items{ display:flex; flex-wrap:wrap; gap:8px; }
+  .stack-group .items span{
+    font-size:13.5px; color:var(--text);
+    background:var(--surface); border:1px solid var(--line);
+    padding:6px 12px; border-radius:7px;
+  }
+
+  /* ---------- education ---------- */
+  .edu-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:18px 0; border-top:1px solid var(--line);
+    gap:16px; flex-wrap:wrap;
+  }
+  .edu-row:first-of-type{ border-top:none; }
+  .edu-row .degree{ font-weight:500; }
+  .edu-row .inst{ color:var(--muted); font-size:14px; }
+  .edu-row .yr{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--muted-2); }
+
+  /* ---------- contact ---------- */
+  .contact{ text-align:left; }
+  .contact h2{ font-size:clamp(30px,4vw,42px); max-width:14ch; }
+  .contact p{ color:var(--muted); max-width:48ch; margin-top:16px; }
+  .contact-links{ display:flex; flex-wrap:wrap; gap:14px; margin-top:36px; }
+
+  footer{ padding:32px 0; }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+  footer .f-text{ font-size:13px; color:var(--muted-2); font-family:'JetBrains Mono', monospace; }
+
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--bg); }
+  ::-webkit-scrollbar-thumb{ background:var(--surface-2); border-radius:6px; }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-name">SANTOSH<span>.</span>PUJERI</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="hero-kicker"><span class="status">● available</span>&nbsp; for senior backend / system design roles — Bengaluru or remote</div>
+  <h1>Santosh Pujeri</h1>
+  <p class="role">Senior Backend Engineer building <strong>idempotent, high-concurrency systems</strong> that stay quiet at 2am — distributed locking, event-driven pipelines, and fintech-grade reliability.</p>
+
+  <div class="tag-row">
+    <span class="tag">Distributed Systems</span>
+    <span class="tag">System Design (HLD/LLD)</span>
+    <span class="tag">High-Concurrency APIs</span>
+    <span class="tag">Fintech Platforms</span>
+  </div>
+
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#projects">View projects</a>
+    <a class="btn btn-ghost" href="mailto:16santoshpujari@gmail.com">Get in touch</a>
+  </div>
+</header>
+
+<section id="about" class="wrap">
+  <div class="eyebrow">about</div>
+  <div class="about-grid">
+    <div class="about-copy">
+      <p>I'm a backend engineer with 6 years building systems for fintech and edtech platforms — currently designing payment and event infrastructure at Appvestor in Bengaluru.</p>
+      <p>My work centers on the unglamorous problems that decide whether a system survives production: race conditions, duplicate charges, N+1 queries, and the locking strategy that keeps 500 people from booking the same seat.</p>
+      <p>Outside of client work, I maintain <a href="https://layofffund.com" style="color:var(--accent); text-decoration:none;">LayoffFund</a>, a live crowdfunding platform I built and run end to end.</p>
+    </div>
+    <div class="code-card">
+      <div class="code-head">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="fname">SantoshPujeri.java</span>
+      </div>
+      <pre><span class="kw">public class</span> <span class="typ">SantoshPujeri</span> <span class="kw">extends</span> <span class="typ">BackendEngineer</span> {
+
+    String location    = <span class="str">"Bengaluru, India"</span>;
+    <span class="kw">int</span> experience     = 6; <span class="cmt">// years</span>
+    String currentRole = <span class="str">"Senior Backend Engineer @ Appvestor"</span>;
+
+    String[] expertise = {
+        <span class="str">"Distributed Systems"</span>, <span class="str">"Microservices"</span>,
+        <span class="str">"System Design (HLD/LLD)"</span>, <span class="str">"Idempotency"</span>,
+        <span class="str">"High-Concurrency APIs"</span>, <span class="str">"Fintech Platforms"</span>
+    };
+
+    <span class="kw">boolean</span> openToWork = <span class="kw">true</span>;
+
+    String superpower() {
+        <span class="kw">return</span> <span class="str">"Eliminating race conditions before they reach production"</span>;
+    }
+}</pre>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><div class="num">−60%</div><div class="label">API p99 latency, via query &amp; index redesign</div></div>
+    <div class="metric"><div class="num">0</div><div class="label">race-condition incidents since Redis locking shipped</div></div>
+    <div class="metric"><div class="num">−40%</div><div class="label">CI/CD release cycle time at Appvestor</div></div>
+    <div class="metric"><div class="num">−60%</div><div class="label">DB load, via Redis TTL caching</div></div>
+    <div class="metric"><div class="num">5M+</div><div class="label">student records served in production pipelines</div></div>
+    <div class="metric"><div class="num">0</div><div class="label">duplicate charges since LayoffFund launch</div></div>
+  </div>
+</section>
+
+<section id="experience" class="wrap">
+  <div class="eyebrow">experience</div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="company">Appvestor</div>
+      <div class="period">Jul 2024 — Present</div>
+    </div>
+    <div class="job-body">
+      <div class="role-title">Senior Backend Engineer, Bengaluru</div>
+      <ul>
+        <li>Designed high-concurrency REST APIs processing <strong>50K+ events/day</strong>; built idempotent service-layer logic that eliminated payment inconsistency errors in production.</li>
+        <li>Drove the decision to use <strong>Redis distributed locking</strong> over DB-level locks — zero race-condition incidents post-deployment.</li>
+        <li>Cut critical API <strong>p99 latency by ~60%</strong> and <strong>CI/CD release cycle by 40%</strong> through query plan analysis and index redesign.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="company">Synechron</div>
+      <div class="period">May 2021 — Jul 2024</div>
+    </div>
+    <div class="job-body">
+      <div class="role-title">Software Engineer, Bengaluru</div>
+      <ul>
+        <li>Built Java/Spring Boot microservices for a <strong>financial platform handling 100K+ daily transactions</strong> across 5+ distributed teams.</li>
+        <li>Designed and owned automated regression pipelines on AWS, enabling same-day production releases.</li>
+        <li>Redis TTL caching cut DB load by <strong>~60%</strong>; resolving N+1 query patterns improved batch throughput by <strong>~45%</strong>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="company">Vedantu &amp; BYJU'S</div>
+      <div class="period">Jul 2018 — Jun 2021</div>
+    </div>
+    <div class="job-body">
+      <div class="role-title">IT Analyst, Bengaluru</div>
+      <ul>
+        <li>Built and maintained data pipelines across student-facing systems, serving <strong>5M+ student records</strong>; improved dataset accuracy by ~30%.</li>
+        <li>Reduced data discrepancy incidents by <strong>40% quarter-on-quarter</strong>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="wrap">
+  <div class="eyebrow">featured projects</div>
+
+  <div class="projects">
+    <div class="project-card">
+      <div class="p-title">
+        <h3>LayoffFund</h3>
+        <a class="p-link" href="https://layofffund.com" target="_blank" rel="noopener">layofffund.com ↗</a>
+      </div>
+      <p class="p-desc">A production crowdfunding platform with JWT-secured REST APIs and idempotent Razorpay payment processing — zero duplicate charges since launch. An adapter pattern around the payment layer enables a zero-touch Stripe migration with no business-logic changes.</p>
+      <div class="stack-row">
+        <span class="chip">Spring Boot 3.2</span><span class="chip">PostgreSQL</span><span class="chip">Razorpay</span><span class="chip">AWS S3</span><span class="chip">Cloudflare CDN</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="p-title">
+        <h3>BookMyShow Backend</h3>
+        <a class="p-link" href="https://github.com/pujerisantosh/bookmyshow-backend" target="_blank" rel="noopener">github ↗</a>
+      </div>
+      <p class="p-desc">A distributed ticket-booking system. Redis SETNX locking prevents double-booking under 500 concurrent seat-reservation requests with zero conflicts; Kafka handles async booking confirmation, notifications, and analytics, with TTL-based expiry for abandoned bookings.</p>
+      <div class="stack-row">
+        <span class="chip">Spring Boot</span><span class="chip">PostgreSQL</span><span class="chip">Redis SETNX</span><span class="chip">Kafka</span><span class="chip">Docker</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="p-title">
+        <h3>AI Workflow Platform</h3>
+        <a class="p-link" href="https://github.com/pujerisantosh/ai-workflow-platform" target="_blank" rel="noopener">github ↗</a>
+      </div>
+      <p class="p-desc">An automation backend integrating AI APIs with Spring Boot for workflow orchestration, with Redis-backed state management for asynchronous execution.</p>
+      <div class="stack-row">
+        <span class="chip">Spring Boot</span><span class="chip">Redis</span><span class="chip">PostgreSQL</span><span class="chip">AI APIs</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="p-title">
+        <h3>Payment Service</h3>
+      </div>
+      <p class="p-desc">An idempotent webhook backend with state-machine transaction handling and HMAC-verified Stripe webhooks. Fully Dockerised, with 100% test coverage across the payment state machine.</p>
+      <div class="stack-row">
+        <span class="chip">Spring Boot</span><span class="chip">PostgreSQL</span><span class="chip">HMAC Webhooks</span><span class="chip">JUnit</span><span class="chip">Mockito</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack" class="wrap">
+  <div class="eyebrow">tech stack</div>
+  <div class="stack-groups">
+    <div class="stack-group">
+      <h4>Languages &amp; frameworks</h4>
+      <div class="items">
+        <span>Java</span><span>Python</span><span>Spring Boot</span><span>Spring Cloud</span><span>Spring Security</span><span>FastAPI</span><span>REST APIs</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <h4>Data &amp; messaging</h4>
+      <div class="items">
+        <span>PostgreSQL</span><span>MySQL</span><span>Redis</span><span>Kafka</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <h4>Cloud, DevOps &amp; testing</h4>
+      <div class="items">
+        <span>AWS</span><span>Docker</span><span>Kubernetes</span><span>GitHub Actions</span><span>JUnit</span><span>Mockito</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="wrap">
+  <div class="eyebrow">education</div>
+  <div class="edu-row">
+    <div>
+      <div class="degree">M.S. Computer Software Engineering</div>
+      <div class="inst">Scaler Academy — DSA · SQL · LLD · HLD · Distributed Systems</div>
+    </div>
+    <div class="yr">2024 – 2025</div>
+  </div>
+  <div class="edu-row">
+    <div>
+      <div class="degree">B.E. Electrical, Electronics &amp; Communications</div>
+      <div class="inst">VTU, Karnataka</div>
+    </div>
+    <div class="yr">2014 – 2018</div>
+  </div>
+</section>
+
+<section id="contact" class="wrap contact">
+  <div class="eyebrow">get in touch</div>
+  <h2>Open to senior backend and system design roles.</h2>
+  <p>Based in Bengaluru, open to remote. The fastest way to reach me is email — happy to talk through architecture, a role, or the LayoffFund payment adapter pattern over coffee.</p>
+  <div class="contact-links">
+    <a class="btn btn-primary" href="mailto:16santoshpujari@gmail.com">16santoshpujari@gmail.com</a>
+    <a class="btn btn-ghost" href="https://linkedin.com/in/santosh-pujeri" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn btn-ghost" href="https://github.com/pujerisantosh" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="f-text">© 2026 Santosh Pujeri</div>
+  <div class="f-text">Built with plain HTML, CSS &amp; JS</div>
+</footer>
+
+</body>
+</html>
