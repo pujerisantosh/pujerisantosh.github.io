@@ -1,34 +1,571 @@
-package org.example.strings;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santosh Pujeri — Backend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0C1014;
+    --surface: #12171D;
+    --surface-2: #171D24;
+    --line: #232A32;
+    --text: #E8EDF2;
+    --muted: #8A96A3;
+    --muted-2: #5B6672;
+    --accent: #5EEAD4;
+    --accent-dim: #2E5A54;
+    --amber: #F2B85C;
+  }
 
-public class StringTransformation {
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  a{ color:inherit; }
+  ::selection{ background:var(--accent); color:#04140F; }
 
-    public static String solve(String s) {
-        StringBuilder result = new StringBuilder();
-        int i = 0;
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
 
-        while (i < s.length()) {
-            char current = s.charAt(i);
-            boolean isVowel = "aeiouAEIOU".indexOf(current) != -1;
+  .wrap{ max-width:920px; margin:0 auto; padding:0 32px; }
+  section{ padding:96px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--accent);
+    margin-bottom:14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:6px; height:6px;
+    background:var(--accent);
+    border-radius:50%;
+    display:inline-block;
+  }
 
-            if (isVowel) {
-                result.append('*');
-                i++;
-            } else if (Character.isLetter(current)
-                    && i + 1 < s.length()
-                    && current == s.charAt(i + 1)) {
-                result.append("10");
-                i += 2;
-            } else {
-                result.append(current);
-                i++;
-            }
-        }
+  nav{
+    position:sticky; top:0; z-index:20;
+    background:rgba(12,16,20,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px; max-width:920px;
+  }
+  .nav-name{ font-weight:600; font-size:15px; }
+  .nav-name span{ color:var(--accent); }
+  .nav-links{ display:flex; gap:28px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    font-size:14px; color:var(--muted); text-decoration:none;
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-links{ display:none; }
+  @media (min-width:640px){ .nav-links{ display:flex; } }
 
-        return result.toString();
+  .hero{ padding-top:88px; padding-bottom:88px; border-bottom:1px solid var(--line); }
+  .hero-kicker{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; color:var(--muted);
+    margin-bottom:22px;
+  }
+  .hero-kicker .status{ color:var(--accent); }
+  .hero h1{
+    font-size:clamp(38px, 6vw, 60px);
+    font-weight:700;
+    line-height:1.06;
+    max-width:13ch;
+  }
+  .hero .role{
+    font-size:clamp(17px, 2.2vw, 20px);
+    color:var(--muted);
+    font-weight:400;
+    margin-top:22px;
+    max-width:56ch;
+  }
+  .hero .role strong{ color:var(--text); font-weight:500; }
+
+  .tag-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:32px; }
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted);
+    border:1px solid var(--line);
+    padding:7px 13px;
+    border-radius:100px;
+  }
+
+  .hero-cta{ display:flex; gap:14px; margin-top:40px; flex-wrap:wrap; }
+  .btn{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:14.5px; font-weight:500;
+    padding:12px 22px;
+    border-radius:8px;
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn-primary{ background:var(--accent); color:#04140F; }
+  .btn-primary:hover{ transform:translateY(-1px); }
+  .btn-ghost{ border:1px solid var(--line); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--muted-2); }
+
+  .about-grid{ display:grid; grid-template-columns:1fr; gap:40px; }
+  @media (min-width:760px){ .about-grid{ grid-template-columns: 0.9fr 1.1fr; gap:56px; } }
+  .about-copy p{ color:var(--muted); margin:0 0 16px; max-width:48ch; }
+  .about-copy p:last-child{ margin-bottom:0; }
+
+  .code-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .code-card .code-head{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 16px;
+    border-bottom:1px solid var(--line);
+  }
+  .dot{ width:9px; height:9px; border-radius:50%; }
+  .dot.r{ background:#E4676B; } .dot.y{ background:#EFC15E; } .dot.g{ background:#61C875; }
+  .code-head span.fname{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; color:var(--muted-2);
+    margin-left:6px;
+  }
+  .code-card pre{
+    margin:0; padding:20px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px; line-height:1.75;
+    color:#B9C4CE;
+    overflow-x:auto;
+  }
+  .code-card .kw{ color:#E399F0; }
+  .code-card .typ{ color:var(--accent); }
+  .code-card .str{ color:var(--amber); }
+  .code-card .cmt{ color:var(--muted-2); }
+
+  .metrics{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    margin-top:44px;
+  }
+  @media (min-width:700px){ .metrics{ grid-template-columns:repeat(4,1fr); } }
+  .metric{ background:var(--surface); padding:26px 20px; }
+  .metric .num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:30px; font-weight:700; color:var(--accent);
+  }
+  .metric .label{ font-size:13px; color:var(--muted); margin-top:8px; }
+
+  .job{
+    display:grid; grid-template-columns:1fr;
+    gap:6px 32px;
+    padding:28px 0;
+    border-top:1px solid var(--line);
+  }
+  .job:first-of-type{ border-top:none; padding-top:0; }
+  @media (min-width:700px){
+    .job{ grid-template-columns:220px 1fr; gap:32px; }
+  }
+  .job-meta .company{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:17px; }
+  .job-meta .period{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--muted-2); margin-top:6px; }
+  .job-body .role-title{ color:var(--muted); font-size:14.5px; margin-bottom:10px; }
+  .job-body ul{ margin:0; padding-left:18px; color:var(--muted); }
+  .job-body li{ margin-bottom:8px; }
+  .job-body li:last-child{ margin-bottom:0; }
+  .job-body li strong{ color:var(--text); font-weight:500; }
+
+  .prior-note{
+    padding:20px 0 0; margin-top:8px;
+    border-top:1px solid var(--line);
+    color:var(--muted-2); font-size:13.5px;
+  }
+  .prior-note strong{ color:var(--muted); font-weight:500; }
+
+  .projects{ display:grid; grid-template-columns:1fr; gap:20px; margin-top:44px; }
+  @media (min-width:700px){ .projects{ grid-template-columns:1fr 1fr; } }
+  .project-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:26px;
+    display:flex; flex-direction:column; gap:14px;
+    transition:border-color .15s ease;
+  }
+  .project-card:hover{ border-color:var(--accent-dim); }
+  .project-card .p-title{
+    display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap;
+  }
+  .project-card h3{ font-size:19px; }
+  .live-badge{
+    font-family:'JetBrains Mono', monospace; font-size:10.5px;
+    color:var(--accent); border:1px solid var(--accent-dim);
+    padding:2px 8px; border-radius:100px; white-space:nowrap;
+  }
+  .project-card .p-link{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--accent);
+    text-decoration:none; white-space:nowrap;
+  }
+  .project-card .p-desc{ color:var(--muted); font-size:14.5px; }
+  .stack-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; }
+  .chip{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px;
+    color:var(--muted-2); border:1px solid var(--line);
+    padding:4px 10px; border-radius:6px;
+  }
+
+  .project-card.featured{ grid-column:1 / -1; border-color:var(--accent-dim); }
+  .flow{
+    display:flex; flex-wrap:wrap; align-items:stretch; gap:8px;
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+  }
+  .flow .node{
+    display:flex; flex-direction:column; gap:2px; justify-content:center;
+    background:var(--surface-2); border:1px solid var(--line);
+    border-radius:8px; padding:8px 12px; color:var(--text);
+  }
+  .flow .node small{ color:var(--muted-2); font-size:10.5px; }
+  .flow .arrow{ color:var(--accent); align-self:center; }
+  .p-points{ margin:0; padding-left:18px; color:var(--muted); font-size:14px; display:flex; flex-direction:column; gap:6px; }
+  .p-points strong{ color:var(--text); font-weight:500; }
+
+  .stack-groups{ display:grid; grid-template-columns:1fr; gap:28px; margin-top:44px; }
+  @media (min-width:700px){ .stack-groups{ grid-template-columns:repeat(3,1fr); } }
+  .stack-group h4{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px;
+    color:var(--muted-2); font-weight:400; text-transform:none;
+    margin-bottom:14px;
+  }
+  .stack-group .items{ display:flex; flex-wrap:wrap; gap:8px; }
+  .stack-group .items span{
+    font-size:13.5px; color:var(--text);
+    background:var(--surface); border:1px solid var(--line);
+    padding:6px 12px; border-radius:7px;
+  }
+
+  .edu-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:18px 0; border-top:1px solid var(--line);
+    gap:16px; flex-wrap:wrap;
+  }
+  .edu-row:first-of-type{ border-top:none; }
+  .edu-row .degree{ font-weight:500; }
+  .edu-row .inst{ color:var(--muted); font-size:14px; }
+  .edu-row .yr{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--muted-2); }
+
+  .contact{ text-align:left; }
+  .contact h2{ font-size:clamp(28px,4vw,40px); max-width:16ch; }
+  .contact p{ color:var(--muted); max-width:50ch; margin-top:16px; }
+  .contact-links{ display:flex; flex-wrap:wrap; gap:14px; margin-top:36px; }
+  .contact-detail{
+    font-family:'JetBrains Mono', monospace; font-size:13px;
+    color:var(--muted-2); margin-top:24px;
+  }
+
+  footer{ padding:32px 0; }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+  footer .f-text{ font-size:13px; color:var(--muted-2); font-family:'JetBrains Mono', monospace; }
+
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--bg); }
+  ::-webkit-scrollbar-thumb{ background:var(--surface-2); border-radius:6px; }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-name">SANTOSH<span>.</span>PUJERI</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="hero-kicker"><span class="status">● open to work</span>&nbsp; backend engineer roles — Bengaluru or remote</div>
+  <h1>Santosh Pujeri</h1>
+  <p class="role">Backend engineer with <strong>5 years of Java experience</strong>, moving from backend-focused QA and automation into hands-on Spring Boot development — proven with live production systems built independently, end to end.</p>
+
+  <div class="tag-row">
+    <span class="tag">Java · Spring Boot</span>
+    <span class="tag">Microservices</span>
+    <span class="tag">System Design (HLD/LLD)</span>
+    <span class="tag">AWS · Kafka · Redis</span>
+  </div>
+
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#projects">View projects</a>
+    <a class="btn btn-ghost" href="mailto:pujerisantosh.backend@gmail.com">Get in touch</a>
+  </div>
+</header>
+
+<section id="about" class="wrap">
+  <div class="eyebrow">about</div>
+  <div class="about-grid">
+    <div class="about-copy">
+      <p>I've spent five years around Java systems — the last year hands-on with Spring Boot and microservices in production at a high-scale MarTech platform, and four years before that building enterprise API validation frameworks for financial workflows on the Morgan Stanley account.</p>
+      <p>Outside of work, I design, build, and deploy full backend systems on my own — including two platforms currently live in production, handling real payments, auth, and users. I also completed a Backend Engineering &amp; System Design certification at Scaler, covering HLD/LLD, microservices, and distributed systems.</p>
+      <p>What I'm looking for now: a role where I can apply that hands-on backend depth full-time, on a team building systems at scale.</p>
+    </div>
+    <div class="code-card">
+      <div class="code-head">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="fname">SantoshPujeri.java</span>
+      </div>
+      <pre><span class="kw">public class</span> <span class="typ">SantoshPujeri</span> <span class="kw">extends</span> <span class="typ">BackendEngineer</span> {
+
+    String location    = <span class="str">"Bengaluru, India"</span>;
+    <span class="kw">int</span> javaExperience = 5; <span class="cmt">// years</span>
+    <span class="kw">int</span> prodSpringBoot = 1; <span class="cmt">// years, hands-on</span>
+
+    String[] liveProjects = {
+        <span class="str">"LayoffFund"</span>, <span class="str">"Uttara Sambandha"</span>
+    };
+
+    String[] expertise = {
+        <span class="str">"Spring Boot"</span>, <span class="str">"Microservices"</span>,
+        <span class="str">"System Design (HLD/LLD)"</span>,
+        <span class="str">"Distributed Locking"</span>
+    };
+
+    <span class="kw">boolean</span> openToWork = <span class="kw">true</span>;
+
+    String currentFocus() {
+        <span class="kw">return</span> <span class="str">"Moving from QA/automation into full-time backend dev"</span>;
     }
+}</pre>
+    </div>
+  </div>
 
-    public static void main(String[] args) {
-        String input = "aabbec";
-        System.out.println(solve(input)); // **10*c
-    }
-}
+  <div class="metrics">
+    <div class="metric"><div class="num">5</div><div class="label">years working with Java</div></div>
+    <div class="metric"><div class="num">3</div><div class="label">full backend systems built independently</div></div>
+    <div class="metric"><div class="num">2</div><div class="label">of those live in production today</div></div>
+    <div class="metric"><div class="num">5</div><div class="label">production APIs under active monitoring</div></div>
+  </div>
+</section>
+
+<section id="experience" class="wrap">
+  <div class="eyebrow">experience</div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="company">Appvestor</div>
+      <div class="period">Jul 2025 — Present</div>
+    </div>
+    <div class="job-body">
+      <div class="role-title">Senior QA Engineer (Backend-Focused) — Mobile Growth &amp; MarTech Platform, Bengaluru</div>
+      <ul>
+        <li>Design, build, and maintain <strong>Java Spring Boot backend services and REST APIs/microservices</strong> powering a high-scale MarTech platform.</li>
+        <li>Partner directly with engineering on architecture decisions and code review for new backend features.</li>
+        <li>Optimize PostgreSQL queries and data models; lead root-cause investigation on production issues to keep releases stable.</li>
+        <li>Built and deployed an <strong>AWS API monitoring system</strong> using CloudFormation (IaC) across 5 production APIs, with CloudWatch dashboards and SNS alerting.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job">
+    <div class="job-meta">
+      <div class="company">Synechron</div>
+      <div class="period">May 2021 — Jul 2025</div>
+    </div>
+    <div class="job-body">
+      <div class="role-title">Lead Automation Engineer (Java/Backend) — Client: Morgan Stanley, Wealth Management, Bengaluru</div>
+      <ul>
+        <li>Progressed <strong>Associate → Senior → Lead</strong> over 4 years on a regulated financial services account.</li>
+        <li>Designed and built Java-based internal frameworks for <strong>enterprise API validation</strong>, adopted across multiple teams in the Wealth Management engineering org.</li>
+        <li>Built backend REST API automation and data-verification tooling, working directly with backend developers across the full SDLC to validate complex financial workflows using SQL.</li>
+        <li>Owned reliability of AWS-hosted applications and CI/CD pipelines across dev and production environments; mentored junior engineers on backend testing strategy, SQL, and API design fundamentals.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="prior-note">
+    <strong>Prior experience (2018–2021):</strong> Student Account Manager, Vedantu &amp; Operations Executive, BYJU'S — customer operations and EdTech platform support.
+  </div>
+</section>
+
+<section id="projects" class="wrap">
+  <div class="eyebrow">backend projects</div>
+
+  <div class="projects">
+    <div class="project-card">
+      <div class="p-title">
+        <h3>LayoffFund</h3>
+        <span class="live-badge">Live</span>
+      </div>
+      <p class="p-desc">A community fund-distribution platform with KYC verification, payments, and admin approval workflows — handling real end-to-end payment flows in production.</p>
+      <div class="stack-row">
+        <span class="chip">Spring Boot</span><span class="chip">JWT</span><span class="chip">Stripe / Razorpay</span><span class="chip">AWS S3</span><span class="chip">Redis</span>
+      </div>
+      <div class="stack-row"><a class="p-link" href="https://layofffund.com" target="_blank" rel="noopener">layofffund.com ↗</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="p-title">
+        <h3>Uttara Sambandha</h3>
+        <span class="live-badge">Live</span>
+      </div>
+      <p class="p-desc">A matrimonial matching platform built end to end, with row-level security policies for per-user data isolation and a server-side Razorpay payment API with signature verification.</p>
+      <div class="stack-row">
+        <span class="chip">Next.js</span><span class="chip">PostgreSQL / Supabase</span><span class="chip">Razorpay</span>
+      </div>
+      <div class="stack-row"><a class="p-link" href="https://uttarasambandha.com" target="_blank" rel="noopener">uttarasambandha.com ↗</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="p-title">
+        <h3>BookMyShow Backend</h3>
+      </div>
+      <p class="p-desc">A high-concurrency booking system. Prevents double-booking under load via Redis-based distributed seat locking and transactional consistency, modeling the concurrency guarantees of a real-world high-traffic booking system.</p>
+      <div class="stack-row">
+        <span class="chip">Spring Boot</span><span class="chip">Redis</span><span class="chip">Kafka</span><span class="chip">PostgreSQL</span><span class="chip">Docker</span>
+      </div>
+      <div class="stack-row"><a class="p-link" href="https://github.com/pujerisantosh/bookmyshow-backend" target="_blank" rel="noopener">github ↗</a></div>
+    </div>
+
+    <div class="project-card">
+      <div class="p-title">
+        <h3>AI Workflow Platform</h3>
+      </div>
+      <p class="p-desc">A secure workflow backend with JWT/RBAC auth and Kafka-based processing, with an in-progress LLM/RAG pipeline.</p>
+      <div class="stack-row">
+        <span class="chip">Java 21</span><span class="chip">Spring Boot</span><span class="chip">JWT/RBAC</span><span class="chip">PostgreSQL</span><span class="chip">Kafka</span>
+      </div>
+      <div class="stack-row"><a class="p-link" href="https://github.com/pujerisantosh/ai-workflow-platform" target="_blank" rel="noopener">github ↗</a></div>
+    </div>
+  </div>
+
+  <div class="projects" style="margin-top:20px;">
+    <div class="project-card">
+      <div class="p-title"><h3>Healthcare Appointment Platform</h3></div>
+      <p class="p-desc">An event-driven booking system built around Kafka for appointment scheduling and status updates.</p>
+      <div class="stack-row"><span class="chip">Kafka</span><span class="chip">Spring Boot</span></div>
+      <div class="stack-row"><a class="p-link" href="https://github.com/pujerisantosh/healthcare-appointment-platform" target="_blank" rel="noopener">github ↗</a></div>
+    </div>
+    <div class="project-card">
+      <div class="p-title"><h3>Payment Service</h3></div>
+      <p class="p-desc">Idempotent Stripe webhook processing — handles retries and duplicate delivery safely with state-machine transaction handling.</p>
+      <div class="stack-row"><span class="chip">Spring Boot</span><span class="chip">Stripe Webhooks</span></div>
+      <div class="stack-row"><a class="p-link" href="https://github.com/pujerisantosh/payment-service-stripe-webhooks" target="_blank" rel="noopener">github ↗</a></div>
+    </div>
+    <div class="project-card featured">
+      <div class="p-title">
+        <h3>AI Production Intelligence</h3>
+        <span class="live-badge">Featured · Event-driven</span>
+      </div>
+      <p class="p-desc">An incident-management backend that solves the dual-write problem: saving to the database and publishing to Kafka can't be made atomic, so an incident and its event are committed together in one transaction (transactional outbox) and a separate publisher delivers the event afterwards. A Kafka outage never loses or blocks an incident.</p>
+
+      <div class="flow" aria-label="Event flow">
+        <span class="node">POST /api/incidents</span><span class="arrow">→</span>
+        <span class="node">PostgreSQL<small>incident + outbox row, 1 tx</small></span><span class="arrow">→</span>
+        <span class="node">Outbox publisher<small>polls every 5s, oldest first</small></span><span class="arrow">→</span>
+        <span class="node">Kafka<small>incident.created</small></span>
+      </div>
+
+      <ul class="p-points">
+        <li><strong>At-least-once delivery:</strong> an event is marked published only after the broker acknowledges it; failures stay pending and are retried on the next poll.</li>
+        <li><strong>Ordering and partitioning:</strong> events are sent oldest-first and keyed by incident ID, so all events for one incident land on the same partition.</li>
+        <li><strong>Validated API:</strong> Bean Validation on request DTOs, UUID identifiers, and OpenAPI/Swagger docs.</li>
+        <li><strong>Local environment:</strong> Docker Compose for Kafka and PostgreSQL with a health-checked database and no secrets in the compose file.</li>
+      </ul>
+
+      <div class="stack-row"><span class="chip">Java 21</span><span class="chip">Spring Boot 4</span><span class="chip">Spring Kafka</span><span class="chip">Spring Data JPA</span><span class="chip">PostgreSQL</span><span class="chip">Docker Compose</span><span class="chip">OpenAPI</span></div>
+      <div class="stack-row"><a class="p-link" href="https://github.com/pujerisantosh/ai-production-intelligence" target="_blank" rel="noopener">github ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="stack" class="wrap">
+  <div class="eyebrow">technical skills</div>
+  <div class="stack-groups">
+    <div class="stack-group">
+      <h4>Languages &amp; backend</h4>
+      <div class="items">
+        <span>Java</span><span>SQL</span><span>Spring Boot</span><span>Spring MVC</span><span>Spring Security</span><span>Spring Data JPA</span><span>Hibernate</span><span>REST APIs</span><span>Microservices</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <h4>Databases, cloud &amp; devops</h4>
+      <div class="items">
+        <span>PostgreSQL</span><span>MySQL</span><span>Redis</span><span>Docker</span><span>AWS (S3, EC2, API Gateway, CloudFormation, CloudWatch, SNS)</span><span>Git</span><span>Maven</span><span>CI/CD</span><span>Kafka</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <h4>Architecture, AI &amp; testing</h4>
+      <div class="items">
+        <span>System Design (HLD/LLD)</span><span>Design Patterns</span><span>OOP</span><span>SOLID</span><span>Distributed Locking</span><span>Transactional Outbox</span><span>Event-Driven Architecture</span><span>LLM Integration</span><span>RAG</span><span>Vector Search</span><span>JUnit</span><span>Mockito</span><span>Postman</span><span>Swagger</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="wrap">
+  <div class="eyebrow">education</div>
+  <div class="edu-row">
+    <div>
+      <div class="degree">Backend Engineering &amp; System Design Certification</div>
+      <div class="inst">Scaler — HLD/LLD, microservices, distributed systems</div>
+    </div>
+    <div class="yr">Mar 2024 – Dec 2025</div>
+  </div>
+  <div class="edu-row">
+    <div>
+      <div class="degree">B.E., Electrical, Electronics &amp; Communications Engineering</div>
+      <div class="inst">Visvesvaraya Technological University</div>
+    </div>
+    <div class="yr">Aug 2014 – Jun 2018</div>
+  </div>
+</section>
+
+<section id="contact" class="wrap contact">
+  <div class="eyebrow">get in touch</div>
+  <h2>Open to backend engineer roles.</h2>
+  <p>Based in Bengaluru, open to remote. Happy to walk through the architecture behind LayoffFund, Uttara Sambandha, or the seat-locking logic in the BookMyShow backend.</p>
+  <div class="contact-links">
+    <a class="btn btn-primary" href="mailto:pujerisantosh.backend@gmail.com">pujerisantosh.backend@gmail.com</a>
+    <a class="btn btn-ghost" href="https://linkedin.com/in/santosh-pujeri" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn btn-ghost" href="https://github.com/pujerisantosh" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <div class="contact-detail">+91 73381 10806 &nbsp;·&nbsp; Bengaluru, Karnataka, India</div>
+</section>
+
+<footer class="wrap">
+  <div class="f-text">© 2026 Santosh Pujeri</div>
+  <div class="f-text">Built with plain HTML, CSS &amp; JS</div>
+</footer>
+
+</body>
+</html>
